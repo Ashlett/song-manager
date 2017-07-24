@@ -1,11 +1,12 @@
 import datetime
+import os
 
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import Column, Date, ForeignKey, Integer, String, Float
 
 from .read_tags import read_tags
-from .util import relative_path
+from .util import get_config, relative_path
 
 Base = declarative_base()
 
@@ -38,6 +39,11 @@ class Song(Base):
         song_info = read_tags(location)
         song_info['location'] = relative_path(location)
         return cls(**song_info)
+
+    @property
+    def absolute_path(self):
+        config = get_config('favourite_song.cfg')
+        return os.path.join(config['music_dir'], self.location)
 
     def as_dict(self):
         return {

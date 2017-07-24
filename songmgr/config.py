@@ -47,3 +47,6 @@ class SetConfig(Config, set):
     def _write_lines(self, f):
         for item in sorted(self):
             f.write(item + '\n')
+
+
+CONFIG_TYPES = {'dict': DictConfig, 'set': SetConfig}

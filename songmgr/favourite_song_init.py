@@ -3,8 +3,7 @@ import os
 from tkinter import Button, Entry, Tk, Label, END
 from tkinter.filedialog import askdirectory
 
-from .config import DictConfig
-from .util import get_config_file_path
+from .util import get_config
 
 
 class FavSongInit(Tk):
@@ -34,7 +33,7 @@ class FavSongInit(Tk):
             entry.insert(0, location)
 
     def save_config(self):
-        config = DictConfig(get_config_file_path('favourite_song.cfg'))
+        config = get_config('favourite_song.cfg')
         config['db_file'] = os.path.join(os.path.realpath(self.db_dir.get()), 'favsong.db')
         config['music_dir'] = os.path.realpath(self.root_dir.get())
         config.save()

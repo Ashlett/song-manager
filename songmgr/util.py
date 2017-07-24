@@ -1,7 +1,7 @@
 import datetime
 import os
 
-from .config import DictConfig
+from .config import CONFIG_TYPES
 
 
 def create_directory_if_not_exists(dir_path):
@@ -15,8 +15,13 @@ def get_config_file_path(filename):
     return os.path.join(config_dir, filename)
 
 
+def get_config(filename, config_type='dict'):
+    config_class = CONFIG_TYPES[config_type]
+    return config_class(get_config_file_path(filename))
+
+
 def relative_path(location):
-    config = DictConfig(get_config_file_path('favourite_song.cfg'))
+    config = get_config('favourite_song.cfg')
     return os.path.relpath(os.path.realpath(location), config['music_dir']).replace('\\', '/')
 
 
