@@ -2,7 +2,9 @@ import datetime
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.sql.expression import func
 
+from .mixtape_algorithm import assemble_mixtapes_from
 from .models import Base, Favourite, Song
 
 
@@ -42,4 +44,21 @@ class SongList(object):
                 raise ValueError('Song {} by {} from {} already present'.format(song.title, song.artist, song.album))
         song.favourites.append(Favourite(from_date=adding_date, to_date=removing_date))
         self.session.add(song)
+        self.session.commit()
+
+    def get_new_mixtapes(self):
+        no_mixtape = self.filter_songs(mixtape_vol=0)
+        for x in range(10):
+            mixtapes = assemble_mixtapes_from(no_mixtape)
+            if mixtapes:
+                return mixtapes
+        raise Exception('Unable to assemble mixtapes in 10 tries')
+
+    def save_new_mixtapes(self, new_mixtapes):
+        mixtape_num = self.session.query(func.max(Song.mixtape_vol)).one()[0]
+        for mx in new_mixtapes:
+            mixtape_num += 1
+            for num, song in enumerate(mx):
+                song.mixtape_vol = mixtape_num
+                song.mixtape_item = num + 1
         self.session.commit()
