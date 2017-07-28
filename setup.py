@@ -7,7 +7,7 @@ scripts = [os.path.join(scripts_dir, file_name) for file_name in os.listdir(scri
 
 setup(
     name='songmgr',
-    version='0.1.0',
+    version='0.2.0',
     packages=['songmgr'],
     scripts=scripts,
 )

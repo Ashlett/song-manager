@@ -1,3 +1,6 @@
+0.2.0
+- Add possibility to create mixtapes from songs in the database and save them as playlists
+
 0.1.0
 - First Alpha release
 - favourite_song.py - program to keep a database of favourite songs
