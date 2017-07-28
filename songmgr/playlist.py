@@ -4,7 +4,7 @@ import os
 
 PlaylistFormat = namedtuple('PlaylistFormat', 'header footer item_format')
 
-formats = {
+playlist_formats = {
     'm3u': PlaylistFormat(
         header='#EXTM3U\n',
         footer='',
@@ -31,10 +31,10 @@ class Playlist(list):
             raise IOError('File exists: ' + file_path)
         playlist_format = playlist_format or file_path.rsplit('.', 1)[1].lower()
         try:
-            pf = formats[playlist_format]
+            pf = playlist_formats[playlist_format]
         except KeyError:
             raise ValueError('Unknown playlist format: {}. Available formats are: {}'.format(
-                playlist_format, ', '.join(formats.keys())
+                playlist_format, ', '.join(playlist_formats.keys())
             ))
 
         playlist_dir = os.path.dirname(os.path.realpath(file_path))

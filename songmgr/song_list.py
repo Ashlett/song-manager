@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.sql.expression import func
 
-from .mixtape_algorithm import assemble_mixtapes_from
+from .mixtape_algorithm import assemble_mixtapes_from, MixtapeAnalysis
 from .models import Base, Favourite, Song
 
 
@@ -45,6 +45,11 @@ class SongList(object):
         song.favourites.append(Favourite(from_date=adding_date, to_date=removing_date))
         self.session.add(song)
         self.session.commit()
+
+    def get_mixtape_fullness(self):
+        no_mixtape = self.filter_songs(mixtape_vol=0)
+        analysis = MixtapeAnalysis(no_mixtape)
+        return analysis.num_new_mixtapes, analysis.fullness
 
     def get_new_mixtapes(self):
         no_mixtape = self.filter_songs(mixtape_vol=0)

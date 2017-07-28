@@ -8,10 +8,10 @@ from .song_widget import SongWidget
 from .util import str_to_date
 
 
-class SongAdder(Frame, object):
+class SongAdder(Frame):
 
     def __init__(self, parent, song_list, music_dir):
-        super(SongAdder, self).__init__(parent)
+        super().__init__(parent)
         self.song_list = song_list
         self.music_dir = music_dir
 
@@ -20,6 +20,7 @@ class SongAdder(Frame, object):
         self.date_added.grid(row=1, column=0)
         self.date_added.insert(0, date.today())
 
+        self.master.title('Add song')
         Label(self, text="Location").grid(row=0, column=1)
         Button(self, text="Choose file", command=self.choose_location).grid(row=1, column=1)
 
