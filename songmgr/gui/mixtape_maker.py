@@ -43,7 +43,7 @@ class MixtapeMaker(Frame):
     def make_mixtapes(self):
         try:
             self.new_mixtapes = self.song_list.get_new_mixtapes()
-            # self.song_list.save_new_mixtapes(self.new_mixtapes)
+            self.song_list.save_new_mixtapes(self.new_mixtapes)
             self.mixtape_success()
         except Exception as e:
             self.mixtape_failure(e)
@@ -109,7 +109,7 @@ class MixtapeMaker(Frame):
             for f in formats:
                 mixtape_file_name = '{} vol.{}.{}'.format(mixtape_name, vol, f)
                 mixtape_path = os.path.join(os.path.realpath(directory), mixtape_file_name)
-                # pl.save_to_file(mixtape_path, f)
+                pl.save_to_file(mixtape_path, f)
                 print(mixtape_path)
         self.show_end_screen()
 
