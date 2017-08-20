@@ -1,7 +1,7 @@
 from tkinter import Button, Tk, Toplevel
 
-from songmgr.mixtape_maker import MixtapeMaker
-from songmgr.song_adder import SongAdder
+from .mixtape_maker import MixtapeMaker
+from .song_adder import SongAdder
 
 
 class FavouriteSong(Tk):

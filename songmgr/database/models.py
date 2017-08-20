@@ -1,12 +1,12 @@
 import datetime
 import os
 
+from sqlalchemy import Column, Date, ForeignKey, Integer, String, Float
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
-from sqlalchemy import Column, Date, ForeignKey, Integer, String, Float
 
-from .read_tags import read_tags
-from .util import get_config, relative_path
+from ..util.read_tags import read_tags
+from ..util.util import get_config, relative_path
 
 Base = declarative_base()
 

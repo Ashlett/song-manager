@@ -3,7 +3,7 @@ import os
 from tkinter import Button, Entry, Tk, Label, END
 from tkinter.filedialog import askdirectory
 
-from .util import get_config
+from ..util.util import get_config
 
 
 class FavSongInit(Tk):

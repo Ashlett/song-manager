@@ -4,8 +4,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.sql.expression import func
 
-from .mixtape_algorithm import assemble_mixtapes_from, MixtapeAnalysis
 from .models import Base, Favourite, Song
+from ..util.mixtape_algorithm import assemble_mixtapes_from, MixtapeAnalysis
 
 
 class SongList(object):

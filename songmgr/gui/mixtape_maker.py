@@ -1,8 +1,9 @@
 from tkinter import Button, Checkbutton, Entry, Frame, IntVar, Label, StringVar
 from tkinter import messagebox, filedialog
+
 import os
 
-from .playlist import Playlist, playlist_formats
+from ..util.playlist import Playlist, playlist_formats
 
 
 class MixtapeMaker(Frame):
