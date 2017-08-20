@@ -35,6 +35,7 @@ class SongAdder(Frame):
 
             def ok():
                 top.destroy()
+                self.master.grab_set()
                 try:
                     self.song_list.add_song(song, adding_date=str_to_date(self.date_added.get()))
                 except ValueError as e:
@@ -44,4 +45,5 @@ class SongAdder(Frame):
             button = Button(top, text="OK", command=ok)
             button.pack()
             SongWidget(parent=top, song=song).pack()
+            top.grab_set()
             top.mainloop()
