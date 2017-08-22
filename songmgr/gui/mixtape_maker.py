@@ -109,7 +109,7 @@ class MixtapeMaker(Frame):
             for f in formats:
                 mixtape_file_name = '{} vol.{}.{}'.format(mixtape_name, vol, f)
                 mixtape_path = os.path.join(os.path.realpath(directory), mixtape_file_name)
-                pl.save_to_file(mixtape_path, f)
+                pl.save_to_file(mixtape_path, self.config['music_dir'], f)
                 print(mixtape_path)
         self.show_end_screen()
 

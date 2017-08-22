@@ -26,7 +26,7 @@ class Playlist(list):
     def __str__(self):
         return '\n'.join('{}. {}'.format(i + 1, x) for i, x in enumerate(self))
 
-    def save_to_file(self, file_path, playlist_format=None):
+    def save_to_file(self, file_path, music_dir, playlist_format=None):
         if os.path.exists(file_path):
             raise IOError('File exists: ' + file_path)
         playlist_format = playlist_format or file_path.rsplit('.', 1)[1].lower()
@@ -41,6 +41,6 @@ class Playlist(list):
         with open(file_path, 'w') as f:
             f.write(pf.header)
             for item in self:
-                location = os.path.relpath(item.absolute_path, playlist_dir)
+                location = os.path.relpath(os.path.join(music_dir, item.location), playlist_dir)
                 f.write(pf.item_format.format(song=item, location=location))
             f.write(pf.footer)

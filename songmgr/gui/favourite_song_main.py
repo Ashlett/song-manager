@@ -16,13 +16,13 @@ class FavouriteSong(Tk):
         Button(text='Make mixtapes', command=self.mixtape_maker).pack()
 
     def song_adder(self):
-        top = Toplevel(self)
-        SongAdder(parent=top, song_list=self.song_list, music_dir=self.config['music_dir']).pack()
-        top.grab_set()
-        top.mainloop()
+        self.switch_to_window(SongAdder)
 
     def mixtape_maker(self):
+        self.switch_to_window(MixtapeMaker)
+
+    def switch_to_window(self, window_class):
         top = Toplevel(self)
-        MixtapeMaker(parent=top, song_list=self.song_list, config=self.config).pack()
+        window_class(parent=top, song_list=self.song_list, config=self.config).pack()
         top.grab_set()
         top.mainloop()

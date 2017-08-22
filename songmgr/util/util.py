@@ -21,10 +21,5 @@ def get_config(filename, config_type='dict'):
     return config_class(get_config_file_path(filename))
 
 
-def relative_path(location):
-    config = get_config('favourite_song.cfg')
-    return os.path.relpath(os.path.realpath(location), config['music_dir']).replace('\\', '/')
-
-
 def str_to_date(x):
     return datetime.datetime.strptime(x, '%Y-%m-%d').date()

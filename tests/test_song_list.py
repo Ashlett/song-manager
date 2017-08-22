@@ -1,5 +1,5 @@
 import os
-from unittest import mock, TestCase
+from unittest import TestCase
 
 from songmgr.database.models import Song
 from songmgr.database.song_list import SongList
@@ -12,10 +12,6 @@ class MyTestCase(TestCase):
         self.test_files = os.path.join(folder, 'test_files')
         self.mp3_files = os.path.join(self.test_files, 'mp3')
         self.empty_db = os.path.join(self.test_files, 'empty.db')
-        mock_config = {'music_dir': self.mp3_files}
-        patcher = mock.patch('songmgr.util.util.get_config', return_value=mock_config)
-        self.addCleanup(patcher.stop)
-        patcher.start()
 
     def tearDown(self):
         if os.path.exists(self.empty_db):
@@ -24,7 +20,7 @@ class MyTestCase(TestCase):
     def test_add_song(self):
         song_list = SongList(self.empty_db)
         file_path = os.path.join(self.mp3_files, 'Kinematic - Peyote.mp3')
-        song = Song.from_filename(file_path)
+        song = Song.from_filename(file_path, music_dir=self.mp3_files)
         self.assertEqual(len(song_list), 0)
         self.assertFalse(song in song_list)
         song_list.add_song(song)

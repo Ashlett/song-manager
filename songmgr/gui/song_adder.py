@@ -11,10 +11,11 @@ from .song_widget import SongWidget
 
 class SongAdder(Frame):
 
-    def __init__(self, parent, song_list, music_dir):
+    def __init__(self, parent, song_list, config):
         super().__init__(parent)
         self.song_list = song_list
-        self.music_dir = music_dir
+        self.config = config
+        self.start_dir = config['music_dir']
 
         Label(self, text="Date added").grid(row=0, column=0)
         self.date_added = Entry(self)
@@ -26,10 +27,10 @@ class SongAdder(Frame):
         Button(self, text="Choose file", command=self.choose_location).grid(row=1, column=1)
 
     def choose_location(self):
-        location = askopenfilename(initialdir=self.music_dir)
+        location = askopenfilename(initialdir=self.start_dir)
         if location:
-            song = Song.from_filename(location)
-            self.music_dir = os.path.dirname(location)
+            song = Song.from_filename(location, self.config['music_dir'])
+            self.start_dir = os.path.dirname(location)
 
             top = Toplevel()
 
