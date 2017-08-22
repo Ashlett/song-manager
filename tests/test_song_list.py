@@ -1,21 +1,18 @@
 import os
-from unittest import TestCase
 
 from songmgr.database.models import Song
 from songmgr.database.song_list import SongList
 
+from .helper import TestCaseWithTempFiles
 
-class MyTestCase(TestCase):
+
+class TestSongList(TestCaseWithTempFiles):
 
     def setUp(self):
-        folder = os.path.dirname(__file__)
-        self.test_files = os.path.join(folder, 'test_files')
+        super().setUp()
         self.mp3_files = os.path.join(self.test_files, 'mp3')
         self.empty_db = os.path.join(self.test_files, 'empty.db')
-
-    def tearDown(self):
-        if os.path.exists(self.empty_db):
-            os.remove(self.empty_db)
+        self.temp_files.append(self.empty_db)
 
     def test_add_song(self):
         song_list = SongList(self.empty_db)

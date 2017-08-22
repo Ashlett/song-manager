@@ -39,6 +39,10 @@ class Song(Base):
         song_info['location'] = os.path.relpath(os.path.realpath(location), music_dir).replace('\\', '/')
         return cls(**song_info)
 
+    @property
+    def time_secs_as_int(self):
+        return int(self.time_secs)
+
     def as_dict(self):
         return {
             'album': self.album,

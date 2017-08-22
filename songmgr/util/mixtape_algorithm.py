@@ -46,4 +46,5 @@ def assemble_mixtapes_from(list_of_songs):
     if all(d < MIXTAPE_MAX_DURATION for d in durations):
         for mx in new_mixtapes:
             random.shuffle(mx)
+        random.shuffle(new_mixtapes)
         return new_mixtapes

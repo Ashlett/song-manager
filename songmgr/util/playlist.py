@@ -8,7 +8,7 @@ playlist_formats = {
     'm3u': PlaylistFormat(
         header='#EXTM3U\n',
         footer='',
-        item_format='#EXTINF:{song.time_secs},{song.artist} - {song.title}\n{location}\n'
+        item_format='#EXTINF:{song.time_secs_as_int},{song.artist} - {song.title}\n{location}\n'
     ),
     'wpl': PlaylistFormat(
         header='<?wpl version="1.0"?>\n<smil>\n    <head>\n    </head>\n    <body>\n        <seq>\n',
