@@ -1,0 +1,4 @@
+[run]
+omit =
+    songmgr/gui/*
+    */__init__.py
