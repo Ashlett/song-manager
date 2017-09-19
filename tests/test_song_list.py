@@ -4,16 +4,15 @@ import shutil
 from songmgr.database.models import Song
 from songmgr.database.song_list import SongList
 
-from .helper import TestCaseWithTempFiles
+from .helper import TestCaseWithTempDir
 
 
-class TestSongList(TestCaseWithTempFiles):
+class TestSongList(TestCaseWithTempDir):
 
     def setUp(self):
         super().setUp()
         self.mp3_files = os.path.join(self.test_files, 'mp3')
-        self.empty_db = os.path.join(self.test_files, 'empty.db')
-        self.temp_files.append(self.empty_db)
+        self.empty_db = os.path.join(self.temp_dir, 'empty.db')
         self.non_empty_db = os.path.join(self.test_files, 'test.db')
 
     def test_add_song(self):
@@ -38,8 +37,7 @@ class TestSongList(TestCaseWithTempFiles):
         self.assertEqual(len(new_mixtapes[0] + new_mixtapes[1]), len(song_list))
 
     def test_save_new_mixtapes(self):
-        copy_of_db = os.path.join(self.test_files, 'copy.db')
-        self.temp_files.append(copy_of_db)
+        copy_of_db = os.path.join(self.temp_dir, 'copy.db')
         shutil.copy(self.non_empty_db, copy_of_db)
         song_list = SongList(copy_of_db)
 

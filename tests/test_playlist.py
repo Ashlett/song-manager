@@ -3,10 +3,10 @@ import os
 from songmgr.database.models import Song
 from songmgr.util.playlist import Playlist
 
-from .helper import TestCaseWithTempFiles
+from .helper import TestCaseWithTempDir
 
 
-class TestPlaylist(TestCaseWithTempFiles):
+class TestPlaylist(TestCaseWithTempDir):
 
     def setUp(self):
         super().setUp()
@@ -36,14 +36,13 @@ class TestPlaylist(TestCaseWithTempFiles):
         playlist = Playlist(self.songs)
         expected = '''#EXTM3U
 #EXTINF:183,Kinematic - Peyote
-mp3/Kinematic - Peyote.mp3
+../mp3/Kinematic - Peyote.mp3
 #EXTINF:202,Roller Genoa - Build My Gallows High
-mp3/Roller Genoa - Build My Gallows High.mp3
+../mp3/Roller Genoa - Build My Gallows High.mp3
 #EXTINF:145,Alex Cohen - Good Old Times
-mp3/Alex Cohen - Good Old Times.mp3
+../mp3/Alex Cohen - Good Old Times.mp3
 '''
-        file_path = os.path.join(self.test_files, 'test.m3u')
-        self.temp_files.append(file_path)
+        file_path = os.path.join(self.temp_dir, 'test.m3u')
         playlist.save_to_file(file_path, music_dir=self.mp3_files)
         with open(file_path) as f:
             content = f.read()
@@ -51,15 +50,13 @@ mp3/Alex Cohen - Good Old Times.mp3
 
     def test_save_to_file_should_fail_when_exists(self):
         playlist = Playlist(self.songs)
-        file_path = os.path.join(self.test_files, 'test.m3u')
-        self.temp_files.append(file_path)
+        file_path = os.path.join(self.temp_dir, 'test.m3u')
         playlist.save_to_file(file_path, music_dir=self.mp3_files)
         with self.assertRaises(IOError):
             playlist.save_to_file(file_path, music_dir=self.mp3_files)
 
     def test_save_to_file_wrong_format(self):
         playlist = Playlist(self.songs)
-        file_path = os.path.join(self.test_files, 'test.xxx')
-        self.temp_files.append(file_path)
+        file_path = os.path.join(self.temp_dir, 'test.xxx')
         with self.assertRaises(ValueError):
             playlist.save_to_file(file_path, music_dir=self.mp3_files)

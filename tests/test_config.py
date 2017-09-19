@@ -2,15 +2,14 @@ import os
 
 from songmgr.util.config import DictConfig, SetConfig
 
-from .helper import TestCaseWithTempFiles
+from .helper import TestCaseWithTempDir
 
 
-class TestConfig(TestCaseWithTempFiles):
+class TestConfig(TestCaseWithTempDir):
 
     def setUp(self):
         super().setUp()
-        self.test_config = os.path.join(self.test_files, 'test.cfg')
-        self.temp_files.append(self.test_config)
+        self.test_config = os.path.join(self.temp_dir, 'test.cfg')
 
     def test_dict_config(self):
         dict_config = DictConfig(self.test_config)

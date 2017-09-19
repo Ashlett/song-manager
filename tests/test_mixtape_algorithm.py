@@ -3,10 +3,10 @@ import os
 from songmgr.database.song_list import SongList
 from songmgr.util.mixtape_algorithm import assemble_mixtapes_from, MixtapeAnalysis, MIXTAPE_MAX_DURATION
 
-from .helper import TestCaseWithTempFiles
+from .helper import TestCaseWithTempDir
 
 
-class TestMixtape(TestCaseWithTempFiles):
+class TestMixtape(TestCaseWithTempDir):
 
     def setUp(self):
         super().setUp()
