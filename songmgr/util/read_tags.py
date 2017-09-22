@@ -11,7 +11,7 @@ def read_tags(file_path):
         tags = EasyID3(file_path)
         f = File(file_path)
         data = {
-            'artist': tags['artist'][0] if 'artist' in tags else tags['albumartist'],
+            'artist': tags['artist'][0] if 'artist' in tags else tags['albumartist'][0],
             'title': tags['title'][0],
             'album': tags['album'][0] if 'album' in tags else None,
             'track_num': int(tags['tracknumber'][0].split('/')[0]) if 'tracknumber' in tags else None,

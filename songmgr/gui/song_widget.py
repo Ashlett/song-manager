@@ -26,5 +26,5 @@ class SongWidget(Frame, object):
         Label(self, text=text).grid(row=row, column=column, padx=10, pady=1)
         e = Entry(self)
         e.grid(row=row, column=column + 1)
-        e.insert(0, self.song[text])
+        e.insert(0, str(self.song[text]))
         e.configure(state='readonly')
