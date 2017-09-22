@@ -2,6 +2,7 @@ import os
 
 from songmgr.database.song_list import SongList
 from songmgr.util.mixtape_algorithm import assemble_mixtapes_from, MixtapeAnalysis, MIXTAPE_MAX_DURATION
+from songmgr.exceptions import NoSongsFoxMixtape
 
 from .helper import TestCaseWithTempDir
 
@@ -31,3 +32,11 @@ class TestMixtape(TestCaseWithTempDir):
             self.assertLess(duration, MIXTAPE_MAX_DURATION)
             artists = [s.artist for s in mx]
             self.assertEqual(len(artists), len(set(artists)))
+
+    def test_mixtape_analysis_on_empty_list(self):
+        with self.assertRaises(NoSongsFoxMixtape):
+            MixtapeAnalysis([])
+
+    def test_mixtape_algorithm_on_empty_list(self):
+        with self.assertRaises(NoSongsFoxMixtape):
+            assemble_mixtapes_from([])

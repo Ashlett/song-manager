@@ -1,9 +1,7 @@
 from mutagen.easyid3 import EasyID3
 from mutagen import File
 
-
-class TagReadingError(Exception):
-    pass
+from ..exceptions import TagReadingError
 
 
 def read_tags(file_path):

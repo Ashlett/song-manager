@@ -4,6 +4,7 @@ from tkinter import messagebox, filedialog
 import os
 
 from ..util.playlist import Playlist, playlist_formats
+from ..exceptions import NoSongsFoxMixtape
 
 
 class MixtapeMaker(Frame):
@@ -15,7 +16,10 @@ class MixtapeMaker(Frame):
         self.new_mixtapes = []
         self.config = config
         self.master.title('Make mixtapes')
-        self.show_initial_screen()
+        try:
+            self.show_initial_screen()
+        except NoSongsFoxMixtape:
+            self.show_no_mixtapes()
 
     def get_suggestion(self):
         num_new_mixtapes, fullness = self.song_list.get_mixtape_fullness()
@@ -39,6 +43,12 @@ class MixtapeMaker(Frame):
         text, color = self.get_suggestion()
         Label(page, text=text, foreground=color).pack()
         Button(page, text='Make mixtapes', command=self.make_mixtapes).pack()
+
+    def show_no_mixtapes(self):
+        page = self._new_page()
+        text = 'No songs to assemble mixtapes from\n(list empty or all songs already in mixtapes)'
+        Label(page, text=text, foreground='red').pack()
+        Button(page, text='OK', command=self.master.destroy).pack()
 
     def make_mixtapes(self):
         try:

@@ -1,12 +1,16 @@
 import math
 import random
 
+from ..exceptions import NoSongsFoxMixtape
+
 MIXTAPE_MAX_DURATION = 79 * 60
 
 
 class MixtapeAnalysis(object):
 
     def __init__(self, list_of_songs):
+        if not list_of_songs:
+            raise NoSongsFoxMixtape('Cannot create mixtapes from an empty list of songs')
         self.list_of_songs = list_of_songs
         self.total_length = sum(s.time_secs for s in list_of_songs)
         self.num_new_mixtapes = math.ceil(self.total_length / MIXTAPE_MAX_DURATION)
